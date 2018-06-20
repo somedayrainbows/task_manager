@@ -34,4 +34,20 @@ class Task
     Task.new(task)
   end
 
+  def self.update(id, task_params)
+   database.execute("UPDATE tasks
+                     SET title = ?,
+                         description = ?
+                     WHERE id = ?;",
+                     task_params[:title],
+                     task_params[:description],
+                     id)
+
+   Task.find(id)
+  end  #can explain each step of this? & syntax format?
+
+  def self.destroy(id)
+   database.execute("DELETE FROM tasks
+                     WHERE id = ?;", id)
+  end
 end
